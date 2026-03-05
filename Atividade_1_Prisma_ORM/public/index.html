@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Atividade Prisma ORM</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <h1>Atividade 1 - Prisma ORM</h1>
+
+    <nav>
+      <button onclick="mostrarSecao('pessoas')">Pessoas</button>
+      <button onclick="mostrarSecao('carros')">Carros</button>
+      <button onclick="mostrarSecao('associacoes')">Associações</button>
+    </nav>
+
+    <main>
+      <section id="secao-pessoas" class="secao ativa">
+        <h2>Cadastrar Pessoa</h2>
+        <form id="form-pessoa">
+          <input type="hidden" id="pessoa-id" />
+          <label>
+            Nome:
+            <input type="text" id="pessoa-nome" required />
+          </label>
+          <label>
+            Email:
+            <input type="email" id="pessoa-email" required />
+          </label>
+          <button type="submit">Salvar</button>
+        </form>
+        <h3>Lista de Pessoas</h3>
+        <table id="tabela-pessoas">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Nome</th>
+              <th>Email</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </section>
+
+      <section id="secao-carros" class="secao">
+        <h2>Cadastrar Carro</h2>
+        <form id="form-carro">
+          <input type="hidden" id="carro-id" />
+          <label>
+            Modelo:
+            <input type="text" id="carro-modelo" required />
+          </label>
+          <label>
+            Marca:
+            <input type="text" id="carro-marca" required />
+          </label>
+          <label>
+            Ano:
+            <input type="number" id="carro-ano" required />
+          </label>
+          <button type="submit">Salvar</button>
+        </form>
+        <h3>Lista de Carros</h3>
+        <table id="tabela-carros">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Modelo</th>
+              <th>Marca</th>
+              <th>Ano</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </section>
+
+      <section id="secao-associacoes" class="secao">
+        <h2>Associar Pessoa a Carro</h2>
+        <form id="form-associacao">
+          <label>
+            Pessoa:
+            <select id="select-pessoa" required></select>
+          </label>
+          <label>
+            Carro:
+            <select id="select-carro" required></select>
+          </label>
+          <button type="submit">Associar</button>
+        </form>
+        <h3>Lista de Associações</h3>
+        <table id="tabela-associacoes">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Pessoa</th>
+              <th>Email</th>
+              <th>Carro</th>
+              <th>Marca</th>
+              <th>Ano</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </section>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+  </html>
+
