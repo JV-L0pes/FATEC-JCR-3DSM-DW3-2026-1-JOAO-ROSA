@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lista de Compras</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="app-shell">
+    <header class="page-header">
+      <div class="page-copy">
+        <span class="eyebrow">Atividade 2</span>
+        <h1>Lista de Compras</h1>
+        <p class="subtitle">Um dashboard de produtos inspirado em e-commerce para acompanhar o que entra no carrinho.</p>
+      </div>
+      <button id="btn-toggle-form" type="button" class="hero-action">+ Adicionar produto</button>
+    </header>
+
+    <section class="summary-strip" aria-label="Resumo da lista">
+      <article class="stat-card">
+        <span class="stat-tag">Catalogo</span>
+        <span id="stats-total" class="stat-value">0</span>
+        <span class="stat-label">Produtos</span>
+      </article>
+      <article class="stat-card">
+        <span class="stat-tag">Fila</span>
+        <span id="stats-pending" class="stat-value">0</span>
+        <span class="stat-label">Para comprar</span>
+      </article>
+      <article class="stat-card">
+        <span class="stat-tag">Checklist</span>
+        <span id="stats-purchased" class="stat-value">0</span>
+        <span class="stat-label">Comprados</span>
+      </article>
+      <article class="stat-card">
+        <span class="stat-tag">Volume</span>
+        <span id="stats-quantity" class="stat-value">0</span>
+        <span class="stat-label">Unidades</span>
+      </article>
+    </section>
+
+    <section id="add-panel" class="panel panel-form hidden">
+      <div class="panel-header panel-header-form">
+        <div>
+          <p class="panel-kicker">Novo produto</p>
+          <h2>Adicionar produto</h2>
+        </div>
+        <p>Cadastre um item novo com nome, quantidade e unidade. Quando terminar, ele entra direto na listagem.</p>
+      </div>
+
+      <form id="form-item" class="form-add" autocomplete="off">
+        <label class="field field-name">
+          <span>Nome do item</span>
+          <input type="text" id="input-name" placeholder="Ex.: Cafe, arroz, tomate..." required>
+        </label>
+
+        <label class="field">
+          <span>Quantidade</span>
+          <input type="number" id="input-quantity" placeholder="Qtd" value="1" min="1">
+        </label>
+
+        <label class="field">
+          <span>Unidade</span>
+          <input type="text" id="input-unit" placeholder="un, kg..." value="un">
+        </label>
+
+        <button type="submit" class="btn-primary">Salvar produto</button>
+      </form>
+    </section>
+
+    <section class="panel panel-list">
+      <div class="panel-header panel-header-list">
+        <div>
+          <p class="panel-kicker">Products</p>
+          <h2>Lista de produtos</h2>
+        </div>
+
+        <div class="list-highlight">
+          <span id="list-summary" class="list-summary">Sua lista ainda esta vazia</span>
+          <span id="status-chip" class="status-chip is-ready">Pronto para comecar</span>
+        </div>
+      </div>
+
+      <div class="toolbar">
+        <label class="search-box" for="input-search">
+          <span class="search-icon" aria-hidden="true">⌕</span>
+          <input type="search" id="input-search" placeholder="Search products...">
+        </label>
+
+        <div class="filter-group" aria-label="Filtros da lista">
+          <button type="button" class="filter-chip is-active" data-filter="all">Todos</button>
+          <button type="button" class="filter-chip" data-filter="pending">Para comprar</button>
+          <button type="button" class="filter-chip" data-filter="purchased">Comprados</button>
+        </div>
+      </div>
+
+      <div class="table-shell">
+        <div class="table-head" aria-hidden="true">
+          <span class="head-product">Product Name</span>
+          <span class="head-quantity">Quantity</span>
+          <span class="head-unit">Unit</span>
+          <span class="head-status">Status</span>
+          <span class="head-actions">Actions</span>
+        </div>
+
+        <ul id="list-items" class="item-list"></ul>
+      </div>
+    </section>
+
+    <div id="message" class="message hidden" aria-live="polite"></div>
+  </main>
+
+  <div id="modal-overlay" class="modal-overlay hidden">
+    <div id="modal-edit" class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+      <div class="modal-header">
+        <p class="panel-kicker">Atualizar item</p>
+        <h2 id="modal-title">Editar item</h2>
+        <p>Altere os dados e salve quando estiver tudo certo.</p>
+      </div>
+
+      <form id="form-edit" class="modal-form">
+        <input type="hidden" id="edit-id">
+
+        <label class="field">
+          <span>Nome do item</span>
+          <input type="text" id="edit-name" placeholder="Nome do item" required>
+        </label>
+
+        <label class="field">
+          <span>Quantidade</span>
+          <input type="number" id="edit-quantity" placeholder="Quantidade" min="1" value="1">
+        </label>
+
+        <label class="field">
+          <span>Unidade</span>
+          <input type="text" id="edit-unit" placeholder="Unidade (un, kg...)" value="un">
+        </label>
+
+        <div class="modal-actions">
+          <button type="button" id="btn-cancel-edit" class="btn-cancel">Cancelar</button>
+          <button type="submit" class="btn-save">Salvar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
