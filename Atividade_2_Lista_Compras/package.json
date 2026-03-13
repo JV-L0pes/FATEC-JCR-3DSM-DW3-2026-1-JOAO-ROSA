@@ -1,0 +1,37 @@
+{
+  "name": "shopping-list-crud",
+  "version": "1.0.0",
+  "description": "CRUD de lista de compras com TypeScript e MongoDB",
+  "main": "dist/server.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/server.js",
+    "dev": "ts-node src/server.ts",
+    "dev:watch": "ts-node-dev --respawn src/server.ts"
+  },
+  "keywords": [
+    "crud",
+    "shopping-list",
+    "typescript",
+    "mongodb"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "mongoose": "^8.8.4"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.17",
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.10.2",
+    "@types/mongoose": "^5.11.97",
+    "ts-node": "^10.9.2",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.7.2"
+  },
+  "type": "commonjs",
+  "types": "./dist/server.d.ts"
+}
