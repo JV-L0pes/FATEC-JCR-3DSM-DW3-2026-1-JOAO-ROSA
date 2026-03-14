@@ -2,112 +2,306 @@
 <html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
-    <title>Atividade Prisma ORM</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Atividade 1 | Painel de Catálogo</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <h1>Atividade 1 - Prisma ORM</h1>
+    <div class="page-shell">
+      <header class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow">Atividade 1</p>
+          <h1>Painel de catálogo com Prisma ORM</h1>
+          <p class="hero-text">
+            Visualize as listas, cadastre novos itens e gerencie associações em uma
+            interface mais próxima de um painel de e-commerce.
+          </p>
+        </div>
 
-    <nav>
-      <button onclick="mostrarSecao('pessoas')">Pessoas</button>
-      <button onclick="mostrarSecao('carros')">Carros</button>
-      <button onclick="mostrarSecao('associacoes')">Associações</button>
-    </nav>
+        <aside class="hero-panel" aria-label="Resumo do sistema">
+          <p class="hero-panel-label">Visão geral</p>
+          <div class="stats-grid">
+            <article class="stat-card">
+              <span class="stat-label">Clientes</span>
+              <strong id="stat-pessoas">0</strong>
+            </article>
+            <article class="stat-card">
+              <span class="stat-label">Produtos</span>
+              <strong id="stat-carros">0</strong>
+            </article>
+            <article class="stat-card">
+              <span class="stat-label">Vínculos</span>
+              <strong id="stat-associacoes">0</strong>
+            </article>
+          </div>
+          <p id="hero-summary-text" class="hero-summary">
+            Cadastre os primeiros registros para visualizar o resumo do sistema.
+          </p>
+        </aside>
+      </header>
 
-    <main>
-      <section id="secao-pessoas" class="secao ativa">
-        <h2>Cadastrar Pessoa</h2>
-        <form id="form-pessoa">
-          <input type="hidden" id="pessoa-id" />
-          <label>
-            Nome:
-            <input type="text" id="pessoa-nome" required />
-          </label>
-          <label>
-            Email:
-            <input type="email" id="pessoa-email" required />
-          </label>
-          <button type="submit">Salvar</button>
-        </form>
-        <h3>Lista de Pessoas</h3>
-        <table id="tabela-pessoas">
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Nome</th>
-              <th>Email</th>
-              <th>Ações</th>
-            </tr>
-          </thead>
-          <tbody></tbody>
-        </table>
-      </section>
+      <nav class="tabs" aria-label="Seções da atividade">
+        <button type="button" class="tab-button ativa" data-section="pessoas">
+          Pessoas
+        </button>
+        <button type="button" class="tab-button" data-section="carros">
+          Carros
+        </button>
+        <button type="button" class="tab-button" data-section="associacoes">
+          Associações
+        </button>
+      </nav>
 
-      <section id="secao-carros" class="secao">
-        <h2>Cadastrar Carro</h2>
-        <form id="form-carro">
-          <input type="hidden" id="carro-id" />
-          <label>
-            Modelo:
-            <input type="text" id="carro-modelo" required />
-          </label>
-          <label>
-            Marca:
-            <input type="text" id="carro-marca" required />
-          </label>
-          <label>
-            Ano:
-            <input type="number" id="carro-ano" required />
-          </label>
-          <button type="submit">Salvar</button>
-        </form>
-        <h3>Lista de Carros</h3>
-        <table id="tabela-carros">
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Modelo</th>
-              <th>Marca</th>
-              <th>Ano</th>
-              <th>Ações</th>
-            </tr>
-          </thead>
-          <tbody></tbody>
-        </table>
-      </section>
+      <main class="content">
+        <section id="secao-pessoas" class="secao ativa">
+          <div class="section-header">
+            <div>
+              <p class="section-kicker">Catálogo</p>
+              <h2>Lista de pessoas</h2>
+              <p>
+                Acompanhe os registros, atualize dados e mantenha a listagem organizada.
+              </p>
+            </div>
+          </div>
 
-      <section id="secao-associacoes" class="secao">
-        <h2>Associar Pessoa a Carro</h2>
-        <form id="form-associacao">
-          <label>
-            Pessoa:
-            <select id="select-pessoa" required></select>
-          </label>
-          <label>
-            Carro:
-            <select id="select-carro" required></select>
-          </label>
-          <button type="submit">Associar</button>
-        </form>
-        <h3>Lista de Associações</h3>
-        <table id="tabela-associacoes">
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Pessoa</th>
-              <th>Email</th>
-              <th>Carro</th>
-              <th>Marca</th>
-              <th>Ano</th>
-              <th>Ações</th>
-            </tr>
-          </thead>
-          <tbody></tbody>
-        </table>
-      </section>
-    </main>
+          <div class="section-layout">
+            <article class="panel form-panel">
+              <div class="panel-header">
+                <div>
+                  <p class="panel-kicker">Formulário</p>
+                  <h3>Dados da pessoa</h3>
+                </div>
+                <p id="pessoa-form-status" class="panel-meta">
+                  Preencha os campos para cadastrar uma nova pessoa.
+                </p>
+              </div>
+
+              <form id="form-pessoa" class="entity-form">
+                <input type="hidden" id="pessoa-id" />
+                <label>
+                  <span>Nome</span>
+                  <input
+                    type="text"
+                    id="pessoa-nome"
+                    placeholder="Digite o nome completo"
+                    required
+                  />
+                </label>
+                <label>
+                  <span>E-mail</span>
+                  <input
+                    type="email"
+                    id="pessoa-email"
+                    placeholder="nome@exemplo.com"
+                    required
+                  />
+                </label>
+
+                <div class="form-actions">
+                  <button type="submit" id="pessoa-submit">Cadastrar pessoa</button>
+                  <button
+                    type="button"
+                    id="pessoa-cancelar"
+                    class="button-secondary hidden"
+                  >
+                    Cancelar edição
+                  </button>
+                </div>
+              </form>
+            </article>
+
+            <article class="panel table-panel">
+              <div class="panel-header panel-header-inline">
+                <div>
+                  <p class="panel-kicker">Listagem</p>
+                  <h3>Pessoas cadastradas</h3>
+                </div>
+                <span id="pessoas-badge" class="panel-badge">0 registros</span>
+              </div>
+
+              <div class="table-wrap">
+                <table id="tabela-pessoas">
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Nome</th>
+                      <th>E-mail</th>
+                      <th>Ações</th>
+                    </tr>
+                  </thead>
+                  <tbody></tbody>
+                </table>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section id="secao-carros" class="secao">
+          <div class="section-header">
+            <div>
+              <p class="section-kicker">Catálogo</p>
+              <h2>Lista de carros</h2>
+              <p>
+                Registre os veículos e mantenha o catálogo com marca, modelo e ano sempre em dia.
+              </p>
+            </div>
+          </div>
+
+          <div class="section-layout">
+            <article class="panel form-panel">
+              <div class="panel-header">
+                <div>
+                  <p class="panel-kicker">Formulário</p>
+                  <h3>Dados do carro</h3>
+                </div>
+                <p id="carro-form-status" class="panel-meta">
+                  Preencha os campos para cadastrar um novo carro.
+                </p>
+              </div>
+
+              <form id="form-carro" class="entity-form">
+                <input type="hidden" id="carro-id" />
+                <label>
+                  <span>Modelo</span>
+                  <input
+                    type="text"
+                    id="carro-modelo"
+                    placeholder="Ex.: Civic Touring"
+                    required
+                  />
+                </label>
+                <label>
+                  <span>Marca</span>
+                  <input
+                    type="text"
+                    id="carro-marca"
+                    placeholder="Ex.: Honda"
+                    required
+                  />
+                </label>
+                <label>
+                  <span>Ano</span>
+                  <input
+                    type="number"
+                    id="carro-ano"
+                    placeholder="2024"
+                    required
+                  />
+                </label>
+
+                <div class="form-actions">
+                  <button type="submit" id="carro-submit">Cadastrar carro</button>
+                  <button
+                    type="button"
+                    id="carro-cancelar"
+                    class="button-secondary hidden"
+                  >
+                    Cancelar edição
+                  </button>
+                </div>
+              </form>
+            </article>
+
+            <article class="panel table-panel">
+              <div class="panel-header panel-header-inline">
+                <div>
+                  <p class="panel-kicker">Listagem</p>
+                  <h3>Carros cadastrados</h3>
+                </div>
+                <span id="carros-badge" class="panel-badge">0 registros</span>
+              </div>
+
+              <div class="table-wrap">
+                <table id="tabela-carros">
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Modelo</th>
+                      <th>Marca</th>
+                      <th>Ano</th>
+                      <th>Ações</th>
+                    </tr>
+                  </thead>
+                  <tbody></tbody>
+                </table>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section id="secao-associacoes" class="secao">
+          <div class="section-header">
+            <div>
+              <p class="section-kicker">Relacionamentos</p>
+              <h2>Lista de associações</h2>
+              <p>
+                Relacione pessoas e carros para acompanhar os vínculos já cadastrados.
+              </p>
+            </div>
+          </div>
+
+          <div class="section-layout">
+            <article class="panel form-panel">
+              <div class="panel-header">
+                <div>
+                  <p class="panel-kicker">Formulário</p>
+                  <h3>Criar associação</h3>
+                </div>
+                <p class="panel-meta">
+                  Selecione uma pessoa e um carro para criar o vínculo.
+                </p>
+              </div>
+
+              <form id="form-associacao" class="entity-form">
+                <label>
+                  <span>Pessoa</span>
+                  <select id="select-pessoa" required></select>
+                </label>
+                <label>
+                  <span>Carro</span>
+                  <select id="select-carro" required></select>
+                </label>
+
+                <div class="form-actions">
+                  <button type="submit">Criar associação</button>
+                </div>
+              </form>
+            </article>
+
+            <article class="panel table-panel">
+              <div class="panel-header panel-header-inline">
+                <div>
+                  <p class="panel-kicker">Listagem</p>
+                  <h3>Associações ativas</h3>
+                </div>
+                <span id="associacoes-badge" class="panel-badge">0 registros</span>
+              </div>
+
+              <div class="table-wrap">
+                <table id="tabela-associacoes">
+                  <thead>
+                    <tr>
+                      <th>ID da pessoa</th>
+                      <th>ID do carro</th>
+                      <th>Pessoa</th>
+                      <th>E-mail</th>
+                      <th>Carro</th>
+                      <th>Marca</th>
+                      <th>Ano</th>
+                      <th>Ações</th>
+                    </tr>
+                  </thead>
+                  <tbody></tbody>
+                </table>
+              </div>
+            </article>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <div id="message" class="message hidden" aria-live="polite"></div>
 
     <script src="script.js"></script>
   </body>
-  </html>
-
+</html>
