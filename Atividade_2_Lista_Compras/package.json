@@ -4,10 +4,12 @@
   "description": "CRUD de lista de compras com TypeScript e MongoDB",
   "main": "dist/server.js",
   "scripts": {
-    "build": "tsc",
+    "build": "npm run build:server && npm run build:frontend",
+    "build:server": "tsc -p tsconfig.json",
+    "build:frontend": "tsc -p tsconfig.frontend.json",
     "start": "node dist/server.js",
-    "dev": "ts-node src/server.ts",
-    "dev:watch": "ts-node-dev --respawn src/server.ts"
+    "dev": "npm run build:frontend && ts-node src/server.ts",
+    "dev:watch": "npm run build:frontend && ts-node-dev --respawn src/server.ts"
   },
   "keywords": [
     "crud",
