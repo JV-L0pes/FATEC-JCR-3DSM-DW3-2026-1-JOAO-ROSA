@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WeatherApp - Consulta do Clima</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="container">
+      <h1>Consulta do Clima</h1>
+      <p>Digite o nome da cidade para buscar as condições atuais.</p>
+
+      <form id="weather-form" class="search-form">
+        <input
+          id="city-input"
+          type="text"
+          placeholder="Ex.: São Paulo"
+          autocomplete="off"
+        />
+        <button type="submit">Buscar</button>
+      </form>
+
+      <section id="feedback" class="feedback" aria-live="polite"></section>
+      <section id="result" class="result"></section>
+    </main>
+
+    <script src="./script.js"></script>
+  </body>
+</html>

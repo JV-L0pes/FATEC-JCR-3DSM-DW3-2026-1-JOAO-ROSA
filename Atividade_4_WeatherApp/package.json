@@ -1,0 +1,32 @@
+{
+  "name": "atividade_4_weatherapp",
+  "version": "1.0.0",
+  "description": "Site de consulta do clima com TypeScript e OpenWeatherMap",
+  "main": "dist/server.js",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "start": "node dist/server.js",
+    "dev": "ts-node src/server.ts",
+    "dev:watch": "ts-node-dev --respawn --transpile-only src/server.ts"
+  },
+  "keywords": [
+    "weather",
+    "typescript",
+    "express",
+    "openweathermap"
+  ],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.6",
+    "@types/node": "^25.6.0",
+    "ts-node": "^10.9.2",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^6.0.3"
+  }
+}
