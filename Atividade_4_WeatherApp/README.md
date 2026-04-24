@@ -1,18 +1,18 @@
 # Atividade 4 - WeatherApp
 
-Aplicação web em TypeScript + Express para consulta de clima em tempo real utilizando a API OpenWeatherMap.
+Aplicação web em TypeScript + Express para consulta de clima em tempo real utilizando a WeatherAPI.
 
 ## Requisitos
 
 - Node.js 18+
-- API Key gratuita do OpenWeatherMap
+- API Key gratuita da WeatherAPI
 
 ## Configuração
 
 1. Copie o arquivo de ambiente:
    - `.env.example` para `.env`
 2. Configure:
-   - `API_KEY=sua_chave_api_openweather`
+   - `WEATHER_API_KEY=sua_chave_api_weatherapi`
    - `PORT=3000`
 
 ## Execução

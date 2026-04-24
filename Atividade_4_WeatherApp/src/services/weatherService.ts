@@ -1,25 +1,30 @@
-interface OpenWeatherMain {
-  temp: number;
-  feels_like: number;
-  humidity: number;
-}
-
-interface OpenWeatherCondition {
-  main: string;
-  description: string;
-  icon: string;
-}
-
-interface OpenWeatherSys {
+interface WeatherApiLocation {
+  name: string;
   country: string;
 }
 
-interface OpenWeatherResponse {
-  cod: number;
-  name: string;
-  sys: OpenWeatherSys;
-  main: OpenWeatherMain;
-  weather: OpenWeatherCondition[];
+interface WeatherApiCurrentCondition {
+  text: string;
+  icon: string;
+}
+
+interface WeatherApiCurrent {
+  temp_c: number;
+  feelslike_c: number;
+  humidity: number;
+  condition: WeatherApiCurrentCondition;
+}
+
+interface WeatherApiSuccessResponse {
+  location: WeatherApiLocation;
+  current: WeatherApiCurrent;
+}
+
+interface WeatherApiErrorResponse {
+  error: {
+    code: number;
+    message: string;
+  };
 }
 
 export interface WeatherResult {
@@ -39,6 +44,7 @@ export class WeatherServiceError extends Error {
     super(message);
     this.name = "WeatherServiceError";
     this.statusCode = statusCode;
+    Object.setPrototypeOf(this, new.target.prototype);
   }
 }
 
@@ -47,32 +53,48 @@ export const fetchWeatherByCity = async (
   apiKey: string
 ): Promise<WeatherResult> => {
   const encodedCity = encodeURIComponent(city);
-  const url = `https://api.openweathermap.org/data/2.5/weather?q=${encodedCity}&appid=${apiKey}&units=metric&lang=pt_br`;
+  const url = `https://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${encodedCity}&lang=pt`;
 
   const response = await fetch(url);
-  const payload = (await response.json()) as OpenWeatherResponse & {
-    message?: string;
-  };
+  const payload = (await response.json()) as
+    | WeatherApiSuccessResponse
+    | WeatherApiErrorResponse;
 
   if (!response.ok) {
-    if (response.status === 404) {
+    const errorPayload = payload as WeatherApiErrorResponse;
+    const errorMessage = errorPayload.error?.message;
+    const normalizedMessage = String(errorMessage || "").toLowerCase();
+
+    if (response.status === 404 || normalizedMessage.includes("no matching location")) {
       throw new WeatherServiceError("Cidade não encontrada.", 404);
     }
 
+    if (response.status === 401 || normalizedMessage.includes("api key")) {
+      throw new WeatherServiceError(
+        "Chave da WeatherAPI inválida. Verifique WEATHER_API_KEY no .env.",
+        401
+      );
+    }
+
     throw new WeatherServiceError(
-      payload.message || "Falha ao consultar API de clima.",
+      errorMessage || "Falha ao consultar API de clima.",
       response.status
     );
   }
 
-  const [weatherInfo] = payload.weather;
+  const weatherData = payload as WeatherApiSuccessResponse;
+  const weatherInfo = weatherData.current.condition;
+  const iconUrl = weatherInfo.icon.startsWith("//")
+    ? `https:${weatherInfo.icon}`
+    : weatherInfo.icon;
+
   return {
-    city: payload.name,
-    country: payload.sys.country,
-    temperature: payload.main.temp,
-    feelsLike: payload.main.feels_like,
-    humidity: payload.main.humidity,
-    condition: weatherInfo.description,
-    iconUrl: `https://openweathermap.org/img/wn/${weatherInfo.icon}@2x.png`
+    city: weatherData.location.name,
+    country: weatherData.location.country,
+    temperature: weatherData.current.temp_c,
+    feelsLike: weatherData.current.feelslike_c,
+    humidity: weatherData.current.humidity,
+    condition: weatherInfo.text,
+    iconUrl
   };
 };
